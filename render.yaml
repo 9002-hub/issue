@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: shop-pos
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: shop-pos-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_EMAIL
+        value: admin@shop.local
+      - key: ADMIN_PASSWORD
+        sync: false
+
+databases:
+  - name: shop-pos-db
+    plan: free
